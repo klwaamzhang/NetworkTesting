@@ -12,10 +12,11 @@ public class Health : NetworkBehaviour
     public int currentHealth = maxHealth;
 
     public RectTransform healthbar;
+    public bool destroyOnDeath;
 
     public void TakeDamage(int amount)
     {
-        // if this object is not active on an active server
+        // if this object is not active on an active server, TakeDamage method will end
         if (!isServer)
         {
             return;
@@ -25,8 +26,15 @@ public class Health : NetworkBehaviour
 
         if(currentHealth <= 0)
         {
-            currentHealth = maxHealth;
-            RpcRespawn();
+            if (destroyOnDeath)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                currentHealth = maxHealth;
+                RpcRespawn();
+            }
         }
     }
 
