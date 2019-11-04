@@ -45,6 +45,9 @@ public class Health : NetworkBehaviour
     }
 
     // ClientRpc Attribute: allow the method to be invoked on clients from a server
+    // ClientRpcs tell the clients what the server has decided to do.
+    // when the server calls a ClientRPC methhod RpcRespawn on the object accociated with Player2, 
+    // this method is called on all clients on the Player2 object.
     [ClientRpc]
     void RpcRespawn()
     {

@@ -27,6 +27,9 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    // Commands tell the server what a client wants to change.
+    // So if Player1 sends a command "CmdFire" 
+    // the command is executed on the server only on the object that is accociated with Player1. 
     [Command]
     void CmdFire()
     {
