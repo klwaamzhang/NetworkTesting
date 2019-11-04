@@ -13,6 +13,15 @@ public class Health : NetworkBehaviour
 
     public RectTransform healthbar;
     public bool destroyOnDeath;
+    private NetworkStartPosition[] spawnPoints;
+
+    private void Start()
+    {
+        if (isLocalPlayer)
+        {
+            spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+        }
+    }
 
     public void TakeDamage(int amount)
     {
@@ -53,7 +62,16 @@ public class Health : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            transform.position = Vector3.zero;
+            //transform.position = Vector3.zero;
+
+            Vector3 spawnPoint = Vector3.zero;
+            
+            if(spawnPoint != null && spawnPoints.Length > 0)
+            {
+                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+            }
+
+            transform.position = spawnPoint;
             //Destroy(gameObject);
         }
     }
